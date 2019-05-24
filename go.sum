@@ -2,3 +2,5 @@ github.com/kylelemons/godebug v0.0.0-20170820004349-d65d576e9348 h1:MtvEpTB6LX3v
 github.com/kylelemons/godebug v0.0.0-20170820004349-d65d576e9348/go.mod h1:B69LEHPfb2qLo0BaaOLcbitczOKLWTsrBG9LczfCD4k=
 github.com/mackerelio/mackerel-client-go v0.3.0 h1:4SFqVdKIWz5IiL/LY/SosoZJ73zDpgaX2rw0/JW6mLo=
 github.com/mackerelio/mackerel-client-go v0.3.0/go.mod h1:/FVnUK7nsg/MEBpIVOCZLYzdIwY5mg/SyAlXDnxVcAI=
+github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
+github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
