@@ -149,7 +149,3 @@ func TestMkk_Integration_Kill(t *testing.T) {
 		t.Fatalf("error occurred while retiring hosts: %v", err)
 	}
 }
-
-func toP(t time.Time) *time.Time {
-	return &t
-}
