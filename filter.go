@@ -3,6 +3,8 @@ package mkk
 import (
 	"time"
 
+	"github.com/pkg/errors"
+
 	"github.com/mackerelio/mackerel-client-go"
 )
 
@@ -25,7 +27,7 @@ func (f *MetricExistenceFilter) Apply(m *mackerel.Client, hosts []*mackerel.Host
 		values, err := m.FetchHostMetricValues(host.ID, f.Name, f.From.Unix(), f.To.Unix())
 
 		if err != nil {
-			return nil, err
+			return nil, errors.Wrap(err, "MetricExistenceFilter.Apply fails while fetching a metric")
 		}
 
 		if len(values) != 0 {
