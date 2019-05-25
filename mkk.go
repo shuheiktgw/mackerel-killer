@@ -1,10 +1,11 @@
 package mkk
 
 import (
-	"github.com/mackerelio/mackerel-client-go"
-	"github.com/pkg/errors"
 	"log"
 	"time"
+
+	"github.com/mackerelio/mackerel-client-go"
+	"github.com/pkg/errors"
 )
 
 type Mkk struct {
@@ -26,7 +27,7 @@ func (m *Mkk) Kill(params *mackerel.FindHostsParam, filters []Filter, options *O
 	}
 
 	for _, f := range filters {
-		hosts, err = f.Apply(m, hosts)
+		hosts, err = f.Apply(m.Client, hosts)
 		if err != nil {
 			return nil, errors.Wrap(err, "Mkk.Kill fails while applying filters")
 		}

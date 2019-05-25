@@ -1,13 +1,13 @@
 package mkk
 
 import (
-	"github.com/mackerelio/mackerel-client-go"
-	"net/http"
 	"time"
+
+	"github.com/mackerelio/mackerel-client-go"
 )
 
 type Filter interface {
-	Apply(*Mkk, []*mackerel.Host) ([]*mackerel.Host, error)
+	Apply(*mackerel.Client, []*mackerel.Host) ([]*mackerel.Host, error)
 }
 
 type MetricExistenceFilter struct {
@@ -16,22 +16,21 @@ type MetricExistenceFilter struct {
 	To   *time.Time
 }
 
-func (f *MetricExistenceFilter) Apply(m *Mkk, hosts []*mackerel.Host) ([]*mackerel.Host, error) {
+func (f *MetricExistenceFilter) Apply(m *mackerel.Client, hosts []*mackerel.Host) ([]*mackerel.Host, error) {
 	var filtered []*mackerel.Host
 
 	for _, host := range hosts {
 		time.Sleep(2 * time.Millisecond)
 
-		_, err := m.Client.FetchHostMetricValues(host.ID, f.Name, f.From.Unix(), f.To.Unix())
-		if err != nil {
-			if e, ok := err.(*mackerel.APIError); ok && e.StatusCode == http.StatusNotFound {
-				continue
-			}
+		values, err := m.FetchHostMetricValues(host.ID, f.Name, f.From.Unix(), f.To.Unix())
 
+		if err != nil {
 			return nil, err
 		}
 
-		filtered = append(filtered, host)
+		if len(values) != 0 {
+			filtered = append(filtered, host)
+		}
 	}
 
 	return filtered, nil
