@@ -10,7 +10,7 @@ import (
 	"github.com/mackerelio/mackerel-client-go"
 )
 
-func TestMetricExistenceFilter_Integration__Apply(t *testing.T) {
+func TestMetricExistenceFilter_Integration_Apply(t *testing.T) {
 	now := time.Now().Unix()
 	hostName := fmt.Sprintf("mackerel-killer-host-%v", now)
 
@@ -60,8 +60,8 @@ func TestMetricExistenceFilter_Integration__Apply(t *testing.T) {
 		{
 			title: "Metric name does not match",
 			name:  "unknown-metric",
-			from:  time.Unix(now-10, 0),
-			to:    time.Unix(now+10, 0),
+			from:  time.Unix(now-100, 0),
+			to:    time.Unix(now+100, 0),
 			error: true,
 		},
 		{

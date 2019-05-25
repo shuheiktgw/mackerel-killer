@@ -15,8 +15,8 @@ func NewMkk(token string) *Mkk {
 	return &Mkk{Client: mackerel.NewClient(token)}
 }
 
-func (m *Mkk) Apply(params *mackerel.FindHostsParam, filters []Filter) ([]*mackerel.Host, error) {
-	hosts, err := m.Client.FindHosts(params)
+func (m *Mkk) Apply(param *mackerel.FindHostsParam, filters []Filter) ([]*mackerel.Host, error) {
+	hosts, err := m.Client.FindHosts(param)
 	if err != nil {
 		return nil, errors.Wrap(err, "Mkk.Apply fails while finding hosts")
 	}
