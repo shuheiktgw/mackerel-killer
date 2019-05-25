@@ -10,7 +10,7 @@ import (
 	"github.com/mackerelio/mackerel-client-go"
 )
 
-func TestMetricExistenceFilter_Apply(t *testing.T) {
+func TestMetricExistenceFilter_Integration__Apply(t *testing.T) {
 	now := time.Now().Unix()
 	hostName := fmt.Sprintf("mackerel-killer-host-%v", now)
 
