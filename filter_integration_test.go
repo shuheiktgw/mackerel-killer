@@ -89,7 +89,7 @@ func TestMetricExistenceFilter_Integration_Apply(t *testing.T) {
 
 	for i, tc := range cases {
 		t.Run(tc.title, func(t *testing.T) {
-			f := MetricExistenceFilter{Name: tc.name, From: &tc.from, To: &tc.to}
+			f := MetricExistenceFilter{Name: tc.name, From: tc.from.Unix(), To: tc.to.Unix()}
 			filtered, err := f.Apply(integrationMkk.Client, hosts)
 
 			if tc.error {

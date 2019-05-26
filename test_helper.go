@@ -7,7 +7,6 @@ import (
 	"net/url"
 	"reflect"
 	"testing"
-	"time"
 )
 
 // setup sets up a test HTTP server along with Mkk
@@ -63,8 +62,4 @@ func testBody(t *testing.T, r *http.Request, want string) {
 	if got := string(b); got != want {
 		t.Errorf("request Body is %s, want %s", got, want)
 	}
-}
-
-func toP(t time.Time) *time.Time {
-	return &t
 }

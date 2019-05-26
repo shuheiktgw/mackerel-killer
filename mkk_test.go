@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"testing"
-	"time"
 
 	"github.com/mackerelio/mackerel-client-go"
 )
@@ -73,8 +72,8 @@ func TestMkk_Apply(t *testing.T) {
 			filters := []Filter{
 				&MetricExistenceFilter{
 					Name: "test",
-					From: toP(time.Unix(0, 0)),
-					To:   toP(time.Unix(100, 0)),
+					From: 0,
+					To:   100,
 				},
 			}
 

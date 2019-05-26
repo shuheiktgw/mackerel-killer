@@ -53,8 +53,8 @@ func TestMkk_Integration_Apply(t *testing.T) {
 			filters: []Filter{
 				&MetricExistenceFilter{
 					Name: "unknown-metric",
-					From: toP(time.Unix(now-100, 0)),
-					To:   toP(time.Unix(now+100, 0)),
+					From: time.Unix(now-100, 0).Unix(),
+					To:   time.Unix(now+100, 0).Unix(),
 				},
 			},
 			error: true,
@@ -64,13 +64,13 @@ func TestMkk_Integration_Apply(t *testing.T) {
 			filters: []Filter{
 				&MetricExistenceFilter{
 					Name: "mackerel-killer-custom",
-					From: toP(time.Unix(now-1000, 0)),
-					To:   toP(time.Unix(now-900, 0)),
+					From: time.Unix(now-1000, 0).Unix(),
+					To:   time.Unix(now-900, 0).Unix(),
 				},
 				&MetricExistenceFilter{
 					Name: "mackerel-killer-custom",
-					From: toP(time.Unix(now-100, 0)),
-					To:   toP(time.Unix(now+100, 0)),
+					From: time.Unix(now-100, 0).Unix(),
+					To:   time.Unix(now+100, 0).Unix(),
 				},
 			},
 			want: 0,
@@ -80,13 +80,13 @@ func TestMkk_Integration_Apply(t *testing.T) {
 			filters: []Filter{
 				&MetricExistenceFilter{
 					Name: "mackerel-killer-custom",
-					From: toP(time.Unix(now-100, 0)),
-					To:   toP(time.Unix(now+100, 0)),
+					From: time.Unix(now-100, 0).Unix(),
+					To:   time.Unix(now+100, 0).Unix(),
 				},
 				&MetricExistenceFilter{
 					Name: "mackerel-killer-custom",
-					From: toP(time.Unix(now-1000, 0)),
-					To:   toP(time.Unix(now-900, 0)),
+					From: time.Unix(now-1000, 0).Unix(),
+					To:   time.Unix(now-900, 0).Unix(),
 				},
 			},
 			want: 0,
@@ -96,13 +96,13 @@ func TestMkk_Integration_Apply(t *testing.T) {
 			filters: []Filter{
 				&MetricExistenceFilter{
 					Name: "mackerel-killer-custom",
-					From: toP(time.Unix(now-100, 0)),
-					To:   toP(time.Unix(now+100, 0)),
+					From: time.Unix(now-100, 0).Unix(),
+					To:   time.Unix(now+100, 0).Unix(),
 				},
 				&MetricExistenceFilter{
 					Name: "mackerel-killer-custom",
-					From: toP(time.Unix(now-50, 0)),
-					To:   toP(time.Unix(now+200, 0)),
+					From: time.Unix(now-50, 0).Unix(),
+					To:   time.Unix(now+200, 0).Unix(),
 				},
 			},
 			want: 1,

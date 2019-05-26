@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net/http"
 	"testing"
-	"time"
 
 	"github.com/mackerelio/mackerel-client-go"
 )
@@ -42,10 +41,7 @@ func TestMetricExistenceFilter_Apply(t *testing.T) {
 
 			hosts := []*mackerel.Host{{ID: id}}
 
-			from := time.Unix(0, 0)
-			to := time.Unix(100, 0)
-			filter := MetricExistenceFilter{Name: "test", From: &from, To: &to}
-
+			filter := MetricExistenceFilter{Name: "test", From: 0, To: 100}
 			filtered, err := filter.Apply(mkk.Client, hosts)
 
 			if err != nil {

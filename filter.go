@@ -14,8 +14,8 @@ type Filter interface {
 
 type MetricExistenceFilter struct {
 	Name string
-	From *time.Time
-	To   *time.Time
+	From int64
+	To   int64
 }
 
 func (f *MetricExistenceFilter) Apply(m *mackerel.Client, hosts []*mackerel.Host) ([]*mackerel.Host, error) {
@@ -24,7 +24,7 @@ func (f *MetricExistenceFilter) Apply(m *mackerel.Client, hosts []*mackerel.Host
 	for _, host := range hosts {
 		time.Sleep(2 * time.Millisecond)
 
-		values, err := m.FetchHostMetricValues(host.ID, f.Name, f.From.Unix(), f.To.Unix())
+		values, err := m.FetchHostMetricValues(host.ID, f.Name, f.From, f.To)
 
 		if err != nil {
 			return nil, errors.Wrap(err, "MetricExistenceFilter.Apply fails while fetching a metric")
