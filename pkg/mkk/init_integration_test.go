@@ -2,9 +2,7 @@
 
 package mkk
 
-import (
-	"os"
-)
+import "os"
 
 var (
 	integrationMackerelToken = os.Getenv("MACKEREL_API_TOKEN")

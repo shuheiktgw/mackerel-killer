@@ -5,6 +5,8 @@ import (
 	"net/http"
 	"testing"
 
+	"github.com/shuheiktgw/mackerel-killer/test/until"
+
 	"github.com/mackerelio/mackerel-client-go"
 )
 
@@ -53,18 +55,18 @@ func TestMkk_Apply(t *testing.T) {
 
 	for i, tc := range cases {
 		t.Run(tc.title, func(t *testing.T) {
-			mkk, mux, _, teardown := setup()
+			m, mux, _, teardown := setup()
 			defer teardown()
 
 			mux.HandleFunc("/api/v0/hosts", func(w http.ResponseWriter, r *http.Request) {
-				testMethod(t, r, http.MethodGet)
-				testFormValues(t, r, values{"name": hostName})
+				util.TestMethod(t, r, http.MethodGet)
+				util.TestFormValues(t, r, util.Values{"name": hostName})
 				fmt.Fprint(w, tc.hostsResponse)
 			})
 
 			mux.HandleFunc(fmt.Sprintf("/api/v0/hosts/%s/metrics", id), func(w http.ResponseWriter, r *http.Request) {
-				testMethod(t, r, http.MethodGet)
-				testFormValues(t, r, values{"from": "0", "to": "100", "name": "test"})
+				util.TestMethod(t, r, http.MethodGet)
+				util.TestFormValues(t, r, util.Values{"from": "0", "to": "100", "name": "test"})
 				w.WriteHeader(tc.metricStatus)
 				fmt.Fprint(w, tc.metricResponse)
 			})
@@ -78,7 +80,7 @@ func TestMkk_Apply(t *testing.T) {
 			}
 
 			param := mackerel.FindHostsParam{Name: hostName}
-			hosts, err := mkk.Apply(&param, filters)
+			hosts, err := m.Apply(&param, filters)
 
 			if tc.error {
 				if err == nil {
