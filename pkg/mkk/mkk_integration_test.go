@@ -144,7 +144,7 @@ func TestMkk_Integration_Kill(t *testing.T) {
 		t.Fatalf("error occurred while finding hosts: %v", err)
 	}
 
-	err = integrationMkk.Kill(hosts)
+	err = integrationMkk.Kill(hosts[0])
 	if err != nil {
 		t.Fatalf("error occurred while retiring hosts: %v", err)
 	}

@@ -1,8 +1,6 @@
 package mkk
 
 import (
-	"time"
-
 	"github.com/mackerelio/mackerel-client-go"
 	"github.com/pkg/errors"
 )
@@ -31,15 +29,6 @@ func (m *Mkk) FindHosts(param *mackerel.FindHostsParam, filters []Filter) ([]*ma
 	return hosts, nil
 }
 
-func (m *Mkk) Kill(hosts []*mackerel.Host) error {
-	for _, host := range hosts {
-		time.Sleep(2 * time.Millisecond)
-
-		err := m.Client.RetireHost(host.ID)
-		if err != nil {
-			return errors.Wrap(err, "Mkk.Kill fails while retiring hosts")
-		}
-	}
-
-	return nil
+func (m *Mkk) Kill(host *mackerel.Host) error {
+	return m.Client.RetireHost(host.ID)
 }
