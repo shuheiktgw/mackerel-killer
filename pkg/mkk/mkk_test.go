@@ -72,7 +72,7 @@ func TestMkk_FindHosts(t *testing.T) {
 			})
 
 			filters := []Filter{
-				&MetricExistenceFilter{
+				&MetricAbsenceFilter{
 					Name: "test",
 					From: 0,
 					To:   100,

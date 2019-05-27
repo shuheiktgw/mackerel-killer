@@ -51,7 +51,7 @@ func TestMkk_Integration_FindHosts(t *testing.T) {
 		{
 			title: "Metric name does not match",
 			filters: []Filter{
-				&MetricExistenceFilter{
+				&MetricAbsenceFilter{
 					Name: "unknown-metric",
 					From: time.Unix(now-100, 0).Unix(),
 					To:   time.Unix(now+100, 0).Unix(),
@@ -60,14 +60,30 @@ func TestMkk_Integration_FindHosts(t *testing.T) {
 			error: true,
 		},
 		{
-			title: "First filter excludes the metric",
+			title: "Both filters exclude the metric",
 			filters: []Filter{
-				&MetricExistenceFilter{
+				&MetricAbsenceFilter{
 					Name: "mackerel-killer-custom",
 					From: time.Unix(now-1000, 0).Unix(),
 					To:   time.Unix(now-900, 0).Unix(),
 				},
-				&MetricExistenceFilter{
+				&MetricAbsenceFilter{
+					Name: "mackerel-killer-custom",
+					From: time.Unix(now+100, 0).Unix(),
+					To:   time.Unix(now+200, 0).Unix(),
+				},
+			},
+			want: 1,
+		},
+		{
+			title: "First filter excludes the metric",
+			filters: []Filter{
+				&MetricAbsenceFilter{
+					Name: "mackerel-killer-custom",
+					From: time.Unix(now-1000, 0).Unix(),
+					To:   time.Unix(now-900, 0).Unix(),
+				},
+				&MetricAbsenceFilter{
 					Name: "mackerel-killer-custom",
 					From: time.Unix(now-100, 0).Unix(),
 					To:   time.Unix(now+100, 0).Unix(),
@@ -78,12 +94,12 @@ func TestMkk_Integration_FindHosts(t *testing.T) {
 		{
 			title: "Second filter excludes the metric",
 			filters: []Filter{
-				&MetricExistenceFilter{
+				&MetricAbsenceFilter{
 					Name: "mackerel-killer-custom",
 					From: time.Unix(now-100, 0).Unix(),
 					To:   time.Unix(now+100, 0).Unix(),
 				},
-				&MetricExistenceFilter{
+				&MetricAbsenceFilter{
 					Name: "mackerel-killer-custom",
 					From: time.Unix(now-1000, 0).Unix(),
 					To:   time.Unix(now-900, 0).Unix(),
@@ -94,18 +110,18 @@ func TestMkk_Integration_FindHosts(t *testing.T) {
 		{
 			title: "Metric is not excluded",
 			filters: []Filter{
-				&MetricExistenceFilter{
+				&MetricAbsenceFilter{
 					Name: "mackerel-killer-custom",
 					From: time.Unix(now-100, 0).Unix(),
 					To:   time.Unix(now+100, 0).Unix(),
 				},
-				&MetricExistenceFilter{
+				&MetricAbsenceFilter{
 					Name: "mackerel-killer-custom",
 					From: time.Unix(now-50, 0).Unix(),
 					To:   time.Unix(now+200, 0).Unix(),
 				},
 			},
-			want: 1,
+			want: 0,
 		},
 	}
 

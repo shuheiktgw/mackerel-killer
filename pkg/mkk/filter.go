@@ -12,13 +12,13 @@ type Filter interface {
 	Apply(*mackerel.Client, []*mackerel.Host) ([]*mackerel.Host, error)
 }
 
-type MetricExistenceFilter struct {
+type MetricAbsenceFilter struct {
 	Name string
 	From int64
 	To   int64
 }
 
-func (f *MetricExistenceFilter) Apply(m *mackerel.Client, hosts []*mackerel.Host) ([]*mackerel.Host, error) {
+func (f *MetricAbsenceFilter) Apply(m *mackerel.Client, hosts []*mackerel.Host) ([]*mackerel.Host, error) {
 	var filtered []*mackerel.Host
 
 	for _, host := range hosts {
@@ -30,7 +30,7 @@ func (f *MetricExistenceFilter) Apply(m *mackerel.Client, hosts []*mackerel.Host
 			return nil, errors.Wrap(err, "MetricExistenceFilter.Apply fails while fetching a metric")
 		}
 
-		if len(values) != 0 {
+		if len(values) == 0 {
 			filtered = append(filtered, host)
 		}
 	}

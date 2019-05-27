@@ -19,12 +19,12 @@ func TestMetricExistenceFilter_Apply(t *testing.T) {
 		{
 			title:    "Metric does not exist",
 			response: `{"metrics": []}`,
-			want:     0,
+			want:     1,
 		},
 		{
 			title:    "Metric exists",
 			response: `{"metrics": [{"time":1,"value":"100"}, {"time":2,"value":"100"}]}`,
-			want:     1,
+			want:     0,
 		},
 	}
 
@@ -43,11 +43,11 @@ func TestMetricExistenceFilter_Apply(t *testing.T) {
 
 			hosts := []*mackerel.Host{{ID: id}}
 
-			filter := MetricExistenceFilter{Name: "test", From: 0, To: 100}
+			filter := MetricAbsenceFilter{Name: "test", From: 0, To: 100}
 			filtered, err := filter.Apply(m.Client, hosts)
 
 			if err != nil {
-				t.Errorf("#%d MetricExistenceFilter.Apply returned error: %v", i, err)
+				t.Errorf("#%d MetricAbsenceFilter.Apply returned error: %v", i, err)
 			}
 
 			if got, want := len(filtered), tc.want; got != want {

@@ -69,27 +69,27 @@ func TestMetricExistenceFilter_Integration_Apply(t *testing.T) {
 			name:  "mackerel-killer-custom",
 			from:  time.Unix(now-10, 0),
 			to:    time.Unix(now-2, 0),
-			want:  0,
+			want:  1,
 		},
 		{
 			title: "Does not include the metric (lower bounds)",
 			name:  "mackerel-killer-custom",
 			from:  time.Unix(now+2, 0),
 			to:    time.Unix(now+10, 0),
-			want:  0,
+			want:  1,
 		},
 		{
 			title: "Includes the metric",
 			name:  "mackerel-killer-custom",
 			from:  time.Unix(now-100, 0),
 			to:    time.Unix(now+100, 0),
-			want:  1,
+			want:  0,
 		},
 	}
 
 	for i, tc := range cases {
 		t.Run(tc.title, func(t *testing.T) {
-			f := MetricExistenceFilter{Name: tc.name, From: tc.from.Unix(), To: tc.to.Unix()}
+			f := MetricAbsenceFilter{Name: tc.name, From: tc.from.Unix(), To: tc.to.Unix()}
 			filtered, err := f.Apply(integrationMkk.Client, hosts)
 
 			if tc.error {
