@@ -15,16 +15,16 @@ func NewMkk(token string) *Mkk {
 	return &Mkk{Client: mackerel.NewClient(token)}
 }
 
-func (m *Mkk) Apply(param *mackerel.FindHostsParam, filters []Filter) ([]*mackerel.Host, error) {
+func (m *Mkk) FindHosts(param *mackerel.FindHostsParam, filters []Filter) ([]*mackerel.Host, error) {
 	hosts, err := m.Client.FindHosts(param)
 	if err != nil {
-		return nil, errors.Wrap(err, "Mkk.Apply fails while finding hosts")
+		return nil, errors.Wrap(err, "Mkk.FindHosts fails while finding hosts")
 	}
 
 	for _, f := range filters {
 		hosts, err = f.Apply(m.Client, hosts)
 		if err != nil {
-			return nil, errors.Wrap(err, "Mkk.Apply fails while applying filters")
+			return nil, errors.Wrap(err, "Mkk.FindHosts fails while applying filters")
 		}
 	}
 

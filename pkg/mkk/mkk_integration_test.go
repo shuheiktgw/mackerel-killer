@@ -10,7 +10,7 @@ import (
 	"github.com/mackerelio/mackerel-client-go"
 )
 
-func TestMkk_Integration_Apply(t *testing.T) {
+func TestMkk_Integration_FindHosts(t *testing.T) {
 	now := time.Now().Unix()
 	hostName := fmt.Sprintf("mackerel-killer-host-%v", now)
 
@@ -112,7 +112,7 @@ func TestMkk_Integration_Apply(t *testing.T) {
 	for i, tc := range cases {
 		t.Run(tc.title, func(t *testing.T) {
 			params := mackerel.FindHostsParam{Name: hostName}
-			hosts, err := integrationMkk.Apply(&params, tc.filters)
+			hosts, err := integrationMkk.FindHosts(&params, tc.filters)
 
 			if tc.error {
 				if err == nil {

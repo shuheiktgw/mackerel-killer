@@ -10,7 +10,7 @@ import (
 	"github.com/mackerelio/mackerel-client-go"
 )
 
-func TestMkk_Apply(t *testing.T) {
+func TestMkk_FindHosts(t *testing.T) {
 	hostName := "mackerel-killer-host"
 	id := "abcdefg"
 
@@ -80,7 +80,7 @@ func TestMkk_Apply(t *testing.T) {
 			}
 
 			param := mackerel.FindHostsParam{Name: hostName}
-			hosts, err := m.Apply(&param, filters)
+			hosts, err := m.FindHosts(&param, filters)
 
 			if tc.error {
 				if err == nil {
@@ -88,7 +88,7 @@ func TestMkk_Apply(t *testing.T) {
 				}
 			} else {
 				if err != nil {
-					t.Errorf("#%d Mkk.Apply returned error: %v", i, err)
+					t.Errorf("#%d Mkk.FindHosts returned error: %v", i, err)
 				}
 
 				if got, want := len(hosts), tc.want; got != want {
