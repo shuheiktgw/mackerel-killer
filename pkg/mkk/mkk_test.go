@@ -42,14 +42,14 @@ func TestMkk_FindHosts(t *testing.T) {
 			hostsResponse:  fmt.Sprintf(`{"hosts": [{"id":"%s"}]}`, id),
 			metricStatus:   http.StatusOK,
 			metricResponse: `{"metrics": []}`,
-			want:           0,
+			want:           1,
 		},
 		{
 			title:          "Metric exists",
 			hostsResponse:  fmt.Sprintf(`{"hosts": [{"id":"%s"}]}`, id),
 			metricStatus:   http.StatusOK,
 			metricResponse: `{"metrics": [{"time":1,"value":"100"}, {"time":2,"value":"100"}]}`,
-			want:           1,
+			want:           0,
 		},
 	}
 
